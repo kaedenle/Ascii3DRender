@@ -3,7 +3,7 @@
 3D Renderer that can render and rotate many 3D polygons.
 Current preloaded shapes include:
 * Cube
-* Pyramid (Buggy)
+* Pyramid
 * Hexagonal Pyramid
 
 ## Directions
@@ -17,9 +17,8 @@ Controls:
 * X rotates CW around the z-axis
 * Z rotates CCW around the z-axis
 * ESC kills the program
-
-To change shapes, change the 's' variable in main to the correct shape.
+* C changes the shape
 
 ## Buggy Behavior
-* Known clipping behavior with the pyramid and the backface culling algorithm used
+* Known clipping behavior with the shapes and the backface culling algorithm used (most extreme in pyramid but exists in the cube too)
 * Unknown what causes this bug

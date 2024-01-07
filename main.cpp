@@ -44,10 +44,13 @@ int main(){
             edges3,
             faces3);
 
-    Shape &s = hexagon;
+    vector<Shape *> shape_list{&hexagon, &cube, &pyramid};
+    Shape *current = shape_list[0];
+    int shape_index = 0;
 
-    bool pressing[7]{ 0 };
-    bool hasPressed = TRUST_E_NO_SIGNER_CERT;
+    bool pressing[8]{ 0 };
+    bool hasPressed = true;
+    bool shapeRelease = false;
     bool flag = true;
     float x_angle = 0, y_angle = 0, z_angle = 0;
     const float ADD = 5;
@@ -78,6 +81,16 @@ int main(){
             x_angle = addToAngle(x_angle, -ADD);
             hasPressed = true;
         }
+
+        if(keyListener('C', pressing[7]) == 0){
+            shape_index = (shape_index + 1) % shape_list.size();
+            current = shape_list[shape_index];
+            reRender(cs, *current, x_angle, y_angle, z_angle);
+        }
+        else if(keyListener('C', pressing[7]) == 1){
+            pressing[7] = false;
+        }
+
         if(keyListener(VK_ESCAPE, pressing[6]) == 0){
             flag = false;
             hasPressed = true;
@@ -86,7 +99,7 @@ int main(){
         if(hasPressed){
             hasPressed = false;
             fill(begin(pressing), end(pressing), false);
-            reRender(cs, s, x_angle, y_angle, z_angle);
+            reRender(cs, *current, x_angle, y_angle, z_angle);
             Sleep(20);
         }
     }

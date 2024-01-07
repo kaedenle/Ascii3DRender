@@ -8,7 +8,8 @@ Current preloaded shapes include:
 
 ## Directions
 Run main.exe.
-Controls
+
+Controls:
 * A rotates CW around the y-axis
 * D rotates CCW around the y-axis
 * S rotates CW around the x-axis

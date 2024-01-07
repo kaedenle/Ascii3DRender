@@ -45,11 +45,7 @@ struct EdgeDef
 enum FaceType 
 {
     forward,
-    back,
-    right,
-    left,
-    top,
-    bottom
+    notforward
 };
 
 class Point{

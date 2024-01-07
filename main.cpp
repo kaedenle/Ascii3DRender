@@ -18,8 +18,8 @@ int main(){
     //cube
     vector<coords3D> coords{{5, 5, 5}, {-5, 5, 5}, {-5, -5, 5}, {5, -5, 5}, {5, 5, -5}, {-5, 5, -5}, {-5, -5, -5}, {5, -5, -5}};
     vector<EdgeDef> edges{{0, 1}, {1, 2}, {2, 3}, {0, 3}, {0, 4}, {1, 5}, {2, 6}, {3, 7}, {4, 5}, {5, 6}, {6, 7}, {4, 7}};
-    vector<Face> faces{Face(::FaceType::forward, vector<int>{0, 1, 2, 3}), Face(::FaceType::right, vector<int>{4, 3, 7, 11}), Face(::FaceType::back, vector<int>{8, 11, 10, 9}), 
-                        Face(::FaceType::left, vector<int>{5, 9, 6, 1}), Face(::FaceType::top, vector<int>{8, 4, 0, 5}), Face(::FaceType::bottom, vector<int>{2, 6, 10, 7})};
+    vector<Face> faces{Face(::FaceType::forward, vector<int>{0, 1, 2, 3}), Face(::FaceType::notforward, vector<int>{4, 3, 7, 11}), Face(::FaceType::notforward, vector<int>{8, 11, 10, 9}), 
+                        Face(::FaceType::notforward, vector<int>{5, 9, 6, 1}), Face(::FaceType::notforward, vector<int>{8, 4, 0, 5}), Face(::FaceType::notforward, vector<int>{2, 6, 10, 7})};
     Shape cube(coords, 
             edges,
             faces);
@@ -27,9 +27,9 @@ int main(){
     //pyramids
     vector<coords3D> coords2{{-6, -6, -6}, {6, -6, -6}, {-6, -6, 6}, {6, -6, 6}, {0, 8, 0}};
     vector<EdgeDef> edges2{{0, 1}, {2, 3}, {0, 2}, {1, 3}, {0, 4}, {1, 4}, {2, 4}, {3, 4}};
-    vector<Face> faces2{Face(::FaceType::back, vector<int>{0, 4, 5}), Face(::FaceType::right, vector<int>{3, 5, 7}), 
-                        Face(::FaceType::forward, vector<int>{1, 6, 7}), Face(::FaceType::left, vector<int>{2, 4, 6}), 
-                        Face(::FaceType::bottom, vector<int>{0, 1, 2, 3})};
+    vector<Face> faces2{Face(::FaceType::notforward, vector<int>{0, 4, 5}), Face(::FaceType::notforward, vector<int>{3, 5, 7}), 
+                        Face(::FaceType::forward, vector<int>{1, 6, 7}), Face(::FaceType::notforward, vector<int>{2, 4, 6}), 
+                        Face(::FaceType::notforward, vector<int>{0, 1, 2, 3})};
     Shape pyramid(coords2, 
             edges2,
             faces2);
@@ -37,7 +37,7 @@ int main(){
     //hexagonal pyramid
     vector<coords3D> coords3{{{-4, 6, 0}, {4, 6, 0}, {6, 0, 0}, {4, -6, 0}, {-4, -6, 0}, {-6, 0, 0}, {0, 0, 8}}};
     vector<EdgeDef> edges3{{{0, 1}, {1, 2}, {2, 3}, {3, 4}, {4, 5}, {0, 5}, {0, 6}, {1, 6}, {2, 6}, {3, 6}, {4, 6}, {5, 6}}};
-    vector<Face> faces3{Face(::FaceType::back, vector<int>{1, 2, 3, 4, 0, 5}), Face(::FaceType::forward, {0, 6, 7}), Face(::FaceType::forward, {1, 7, 8}), 
+    vector<Face> faces3{Face(::FaceType::notforward, vector<int>{1, 2, 3, 4, 0, 5}), Face(::FaceType::forward, {0, 6, 7}), Face(::FaceType::forward, {1, 7, 8}), 
             Face(::FaceType::forward, {2, 8, 9}), Face(::FaceType::forward, {4, 10, 11}), Face(::FaceType::forward, {3, 9, 10}), Face(::FaceType::forward, {5, 11, 6})};
     
     Shape hexagon(coords3, 

@@ -1,0 +1,33 @@
+STEPS TO CREATE ASCII 3D RENDERER
+1. Coordinate System
+    --- * Representing numeral coordinates in a 2D space
+    --- * Data Structures to contain points with evolution for edges and faces
+    --- * Converting coordinates to world coordinates (within the string)
+    * Graph axes
+    * Create Data Structure for Faces
+    --- * in bounds function
+    
+2. Line Renderer
+    --- * Graph edges
+    --- * Use line drawing algorithm
+
+3. Project 3D coordinates onto 2D spaces
+
+4. Create shape class
+    * edges, faces, and lines encompassed within this class
+    * easy shortcut to define shapes without having to thinking about it too hard
+    * make it triangle-based to allow backface culling to work the best
+
+4b. Organize points in clockwise order
+    * Check if any clockwise order will do
+    * Apply backface culling to it
+
+4c. Math Functions
+    * Cross Product
+    * Dot Product
+    * Matrix Mult
+
+5. Backface culling
+    * Research it more and how it works
+    * Implement it
+    * Optimize it to work with more shapes

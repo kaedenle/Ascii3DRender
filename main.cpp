@@ -54,7 +54,28 @@ int main(){
             edges4,
             faces4);
 
-    vector<Shape *> shape_list{&hexagon, &cube, &pyramid, &prism};
+    //Hollow Cube
+    /*vector<coords3D> coords5{{{6, 6, 2}, {6, 6, -2}, {-6, 6, 2}, {-6, 6, -2}, {6, -6, 2}, {6, -6, -2}, {-6, -6, 2}, {-6, -6, -2},
+                            {9, 9, 2}, {9, 9, -2}, {-9, 9, 2}, {-9, 9, -2}, {9, -9, 2}, {9, -9, -2}, {-9, -9, 2}, {-9, -9, -2}}};
+    vector<EdgeDef> edges5{{{0, 2}, {0, 4}, {4, 6}, {2, 6}, {8, 10}, {8, 12}, {12, 14}, {10, 14}, {0, 8}, {4, 12}, {6, 14}, {2, 10}, 
+                            {1, 3}, {1, 5}, {5, 7}, {3, 7}, {9, 11}, {9, 13}, {13, 15}, {11, 15}, {1, 9}, {5, 13}, {7, 15}, {3, 11},
+                            {10, 11}, {14, 15}, {2, 3}, {6, 7}, {8, 9}, {12, 13}, {0, 1}, {4, 5}}};
+    vector<Face> faces5{
+            Face(::FaceType::forward, vector<int>{0, 4, 8, 11}), Face(::FaceType::forward, {2, 9, 6, 10}), 
+            Face(::FaceType::forward, {3, 7, 10, 11}), Face(::FaceType::forward, {1, 5, 8, 9}), 
+            Face(::FaceType::notforward, {12, 16, 20, 23}), Face(::FaceType::notforward, {13, 17, 20, 21}),
+            Face(::FaceType::notforward, {14, 18, 21, 22}), Face(::FaceType::notforward, {15, 19, 22, 23}),
+            Face(::FaceType::notforward, {0, 12, 26, 30}), Face(::FaceType::notforward, {4, 6, 24, 28}),
+            Face(::FaceType::notforward, {3, 15, 26, 27}), Face(::FaceType::notforward, {7, 19, 24, 25}),
+            Face(::FaceType::notforward, {1, 3, 30, 31}), Face(::FaceType::notforward, {5, 17, 28, 29}),
+            Face(::FaceType::notforward, {2, 14, 27, 31}), Face(::FaceType::notforward, {6, 18, 25, 29})
+            };
+    
+    Shape hollow(coords5, 
+            edges5,
+            faces5);*/
+
+    vector<Shape *> shape_list{&cube, &pyramid, &hexagon, &prism};
     Shape *current = shape_list[0];
     int shape_index = 0;
 

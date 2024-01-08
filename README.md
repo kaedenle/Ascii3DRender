@@ -22,3 +22,4 @@ Controls:
 ## Buggy Behavior
 * Known clipping behavior with the shapes and the backface culling algorithm used (most extreme in pyramid but exists in the cube too)
 * Unknown what causes this bug
+* Concave shapes don't cull correctly

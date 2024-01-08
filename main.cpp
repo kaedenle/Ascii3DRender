@@ -25,7 +25,7 @@ int main(){
             faces);
     
     //pyramids
-    vector<coords3D> coords2{{-6, -6, -6}, {6, -6, -6}, {-6, -6, 6}, {6, -6, 6}, {0, 8, 0}};
+    vector<coords3D> coords2{{-6, -6, -6}, {6, -6, -6}, {-6, -6, 6}, {6, -6, 6}, {0, 6, 0}};
     vector<EdgeDef> edges2{{0, 1}, {2, 3}, {0, 2}, {1, 3}, {0, 4}, {1, 4}, {2, 4}, {3, 4}};
     vector<Face> faces2{Face(::FaceType::notforward, vector<int>{0, 4, 5}), Face(::FaceType::notforward, vector<int>{3, 5, 7}), 
                         Face(::FaceType::forward, vector<int>{1, 6, 7}), Face(::FaceType::notforward, vector<int>{2, 4, 6}), 
@@ -45,7 +45,7 @@ int main(){
             faces3);
 
     //triangular prism
-    vector<coords3D> coords4{{{-2, 4, 2}, {2, 4, 2}, {0, 4, -2}, {-2, -4, 2}, {2, -4, 2}, {0, -4, -2}}};
+    vector<coords3D> coords4{{{-4, 6, 4}, {4, 6, 4}, {0, 6, -4}, {-4, -6, 4}, {4, -6, 4}, {0, -6, -4}}};
     vector<EdgeDef> edges4{{{0, 1}, {0, 2}, {1, 2}, {3, 4}, {3, 5}, {4, 5}, {0, 3}, {1, 4}, {2, 5}}};
     vector<Face> faces4{Face(::FaceType::forward, vector<int>{0, 3, 6, 7}), Face(::FaceType::notforward, {1, 4, 6, 8}), Face(::FaceType::notforward, {2, 5, 7, 8}), 
             Face(::FaceType::notforward, {0, 1, 2}), Face(::FaceType::notforward, {3, 4, 5})};

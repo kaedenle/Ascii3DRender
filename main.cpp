@@ -44,7 +44,17 @@ int main(){
             edges3,
             faces3);
 
-    vector<Shape *> shape_list{&hexagon, &cube, &pyramid};
+    //triangular prism
+    vector<coords3D> coords4{{{-2, 4, 2}, {2, 4, 2}, {0, 4, -2}, {-2, -4, 2}, {2, -4, 2}, {0, -4, -2}}};
+    vector<EdgeDef> edges4{{{0, 1}, {0, 2}, {1, 2}, {3, 4}, {3, 5}, {4, 5}, {0, 3}, {1, 4}, {2, 5}}};
+    vector<Face> faces4{Face(::FaceType::forward, vector<int>{0, 3, 6, 7}), Face(::FaceType::notforward, {1, 4, 6, 8}), Face(::FaceType::notforward, {2, 5, 7, 8}), 
+            Face(::FaceType::notforward, {0, 1, 2}), Face(::FaceType::notforward, {3, 4, 5})};
+    
+    Shape prism(coords4, 
+            edges4,
+            faces4);
+
+    vector<Shape *> shape_list{&hexagon, &cube, &pyramid, &prism};
     Shape *current = shape_list[0];
     int shape_index = 0;
 
@@ -52,6 +62,7 @@ int main(){
     bool hasPressed = true;
     bool shapeRelease = false;
     bool flag = true;
+
     float x_angle = 0, y_angle = 0, z_angle = 0;
     const float ADD = 5;
 

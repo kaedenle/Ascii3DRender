@@ -7,7 +7,7 @@
 using namespace std;
 
 //camera z coord
-#define CONST_Z 8
+#define CONST_Z 16
 
 class Edge;
 class Point3D;

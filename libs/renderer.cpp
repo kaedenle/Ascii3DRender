@@ -1,4 +1,5 @@
 #include<iostream>
+#include<limits>
 #include "renderer.h"
 
 using namespace std;
@@ -162,3 +163,5 @@ void Renderer::renderTriangle(TriangularPiece &piece){
             renderLine(*edge, LINECHAR);
     }
 }
+
+ZBuffer::ZBuffer(int x, int y) : XMAX(x), YMAX(y), buffer((y * 2) + 3 , vector<int>((x * 2) + 3, numeric_limits<int>::min())){}

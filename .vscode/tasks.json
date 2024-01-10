@@ -10,6 +10,7 @@
                 "-g",
                 "${file}",
                 "${workspaceFolder}\\libs\\geometry.h",
+                "${workspaceFolder}\\libs\\geomath.h",
                 "${workspaceFolder}\\libs\\geometry.cpp",
                 "${workspaceFolder}\\libs\\mathdata.h",
                 "${workspaceFolder}\\libs\\mathdata.cpp",

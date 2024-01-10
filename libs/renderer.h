@@ -38,4 +38,11 @@ class Renderer{
         }
 };
 
+class ZBuffer{
+    vector< vector<int> > buffer;
+    int XMAX, YMAX;
+    public:
+        ZBuffer(int, int);
+};
+
 #endif

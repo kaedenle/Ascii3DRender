@@ -36,8 +36,6 @@ class GeoBase{
             //cout << shared.render_coords3D.x << " " << shared.render_coords3D.y << " " << shared.render_coords3D.z << endl;
             return ret <= 0;
         }
-
-        
 };
 
 class Shape : private GeoBase{

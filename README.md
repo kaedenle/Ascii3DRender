@@ -25,6 +25,6 @@ Controls:
 * Concave shapes don't cull correctly
 
 ## Buggy Behavior (ZBuffering)
-* Random points floating (ZBuffer not properly covering area)
+* Random points floating (ZBuffer not properly covering area or edge priority being close)
 * Unneccesary culling (incorrect value in buffer, solve by making buffer not include edges)
     * Improved with edge priority in buffer

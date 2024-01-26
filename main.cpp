@@ -76,7 +76,7 @@ int main(){
             faces5);*/
 
     vector<Shape *> shape_list{&cube, &pyramid, &hexagon, &prism};
-    Shape *current = shape_list[0];
+    Shape *current = shape_list[1];
     int shape_index = 0;
 
     bool pressing[8]{ 0 };
@@ -87,6 +87,7 @@ int main(){
     float x_angle = 0, y_angle = 0, z_angle = 0;
     const float ADD = 5;
 
+    //cs.renderer.buffer.outputBuffer();
     //key listener
     while(flag == true){
         if(keyListener('D', pressing[0]) == 0){
@@ -156,6 +157,7 @@ void reRender(CoordinateSpace &cs, Shape &s, float x_angle, float y_angle, float
 
     //cout << endl;
     cs.drawGrid();
+    //cs.renderer.buffer.outputBuffer();
 }
 
 int keyListener(int key, bool &isPressed){

@@ -25,7 +25,7 @@ void CoordinateSpace::drawGrid(){
 }
 
 void CoordinateSpace::clearGrid(){
-    //output the entire grid
+    //clear the entire grid
     for (int i = 0; i < grid.size(); i++)
     {
         for (int j = 0; j < grid[i].size(); j++)
@@ -33,4 +33,7 @@ void CoordinateSpace::clearGrid(){
             grid[i][j] = ' ';
         }
     }
+
+    //clear the ZBuffer in renderer
+    renderer.buffer.clearBuffer();
 }

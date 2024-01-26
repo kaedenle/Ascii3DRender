@@ -43,4 +43,9 @@ coords normalize(coords vector){
     return vector;
 }
 
+//check if point is within the triangle on the x-y plane
+float sign (coords p1, coords p2, coords p3);
+
+bool PointInTriangle (coords pt, coords v1, coords v2, coords v3);
+
 #endif

@@ -38,6 +38,17 @@ void Point3D::project3Dcoords(){
     world = {proj_x, proj_y};
 }
 
+//must be called explicitly
+void Point3D::project3DcoordsRound(){
+    int TrueZ = CONST_Z * 2;
+    //get division constant
+    float value = 1 / (float)(-render_coords3D.z + TrueZ);
+    //project 3d coords to x and y
+    int proj_x = round(render_coords3D.x * TrueZ * value), proj_y = round(render_coords3D.y * TrueZ * value);
+    //get 2d world coordinates
+    world = {proj_x, proj_y};
+}
+
 bool Point3D::is3DEqual(Point3D p){
     return p.coord3D.x == coord3D.x && p.coord3D.y == coord3D.y && p.coord3D.z == coord3D.z;
 }

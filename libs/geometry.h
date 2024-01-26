@@ -9,6 +9,7 @@ using namespace std;
 #include<iostream>
 #include "mathdata.h"
 #include "geomath.h"
+#include "buffer.h"
 
 class Shape;
 class Face;
@@ -106,14 +107,12 @@ class TriangularPiece : public GeoBase{
 
         TriangularPiece(vector<Edge*>, FaceType, Shape *);
         //~TriangularPiece();
+        void makeEquation();
     private:
         void getPoints();
         void addPoint(Point3D *);
         void sortClockwise();
         void getEquation(Point3D &, Point3D &, Point3D &);
-        void getInBetweens(Point3D &, Point3D &, Point3D &);
-        //have a boolean within points/edges that tells whether it's been culled or not?
-        //have to reset it eventually however
 };
 
 #endif

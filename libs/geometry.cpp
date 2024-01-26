@@ -178,7 +178,7 @@ TriangularPiece::TriangularPiece(vector<Edge*> edges, FaceType ft, Shape *parent
     parent->vertex_list_ref.push_back(&center);
 
     sortClockwise();
-    getEquation(*points_ref[1], *points_ref[2], *points_ref[0]);
+    makeEquation();
 
     points_ref.push_back(&center);
 };
@@ -270,23 +270,8 @@ void TriangularPiece::getEquation(Point3D &p1, Point3D &p2, Point3D &shared){
     d = dotProduct<coords3DFloat>(negNormal, 
                                         {float(shared.render_coords3D.x), float(shared.render_coords3D.y), float(shared.render_coords3D.z)});
     
-    getInBetweens(p1, p2, shared);
 }
 
-//get 3d coords of all points within triangle
-void TriangularPiece::getInBetweens(Point3D &p1, Point3D &p2, Point3D &shared){
-    //1. get min and max
-    int x_max = max(max(p1.render_coords3D.x, p2.render_coords3D.x), shared.render_coords3D.x); 
-    int y_max = max(max(p1.render_coords3D.y, p2.render_coords3D.y), shared.render_coords3D.y); 
-    int z_max = max(max(p1.render_coords3D.z, p2.render_coords3D.z), shared.render_coords3D.z); 
-
-    int x_min = min(min(p1.render_coords3D.x, p2.render_coords3D.x), shared.render_coords3D.x); 
-    int y_min = min(min(p1.render_coords3D.y, p2.render_coords3D.y), shared.render_coords3D.y); 
-    int z_min = min(min(p1.render_coords3D.z, p2.render_coords3D.z), shared.render_coords3D.z); 
-
-    //2. check if point is within triangle
-    //3. check if z coeff is 0
-    //4. calculate z from the plane equation
-    //5. add that new point into the vector
-
+void TriangularPiece::makeEquation(){
+    getEquation(*points_ref[1], *points_ref[2], *points_ref[0]);
 }

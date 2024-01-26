@@ -11,12 +11,13 @@ class Renderer{
     vector< vector<char> >& grid;
     int XMAX, YMAX;
     public:
+        ZBuffer buffer;
         Renderer(vector< vector<char> >& grid, int, int);
 
-        void renderLine(Edge &, char);
-        void renderLine(Point &, Point &, char);
+        void renderLine(Edge &, coords3DFloat, float , char );
+        void renderLine(Point3D &, Point3D &, coords3DFloat, float, char);
 
-        void renderPoint(Point &, char);
+        void renderPoint(Point &, char, float = numeric_limits<int>::max());
         //to check buffer
         void renderPoint(Point3D &, char);
 
@@ -26,6 +27,7 @@ class Renderer{
     private:
         void renderFace(Face &);
         void renderTriangle(TriangularPiece &);
+        float getZValue(float, float, coords3DFloat, float, float = numeric_limits<int>::min());
 
         int sign(int n){
             if(n == 0)
@@ -36,13 +38,6 @@ class Renderer{
         bool inbounds(Point p){
             return p.world.x <= XMAX && p.world.x >= -XMAX && p.world.y <= YMAX && p.world.y >= -YMAX;
         }
-};
-
-class ZBuffer{
-    vector< vector<int> > buffer;
-    int XMAX, YMAX;
-    public:
-        ZBuffer(int, int);
 };
 
 #endif

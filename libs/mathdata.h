@@ -70,8 +70,9 @@ class Point3D : public Point{
         bool is3DEqual(Point3D);
         void setcoords3D(coords3D);
         void print3DCoords();
+        void project3DcoordsRound();
     private:
-        void project3Dcoords();
+        void project3Dcoords();     
 };
 
 class Edge{

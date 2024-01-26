@@ -27,3 +27,4 @@ Controls:
 ## Buggy Behavior (ZBuffering)
 * Random points floating (ZBuffer not properly covering area)
 * Unneccesary culling (incorrect value in buffer, solve by making buffer not include edges)
+    * Improved with edge priority in buffer

@@ -76,8 +76,8 @@ int main(){
             faces5);*/
 
     vector<Shape *> shape_list{&cube, &pyramid, &hexagon, &prism};
-    Shape *current = shape_list[1];
     int shape_index = 0;
+    Shape *current = shape_list[shape_index];
 
     bool pressing[8]{ 0 };
     bool hasPressed = true;
@@ -115,12 +115,10 @@ int main(){
             hasPressed = true;
         }
 
-        if(keyListener('C', pressing[7]) == 0){
+        if(keyListener('C', pressing[7]) == 1){
             shape_index = (shape_index + 1) % shape_list.size();
             current = shape_list[shape_index];
             reRender(cs, *current, x_angle, y_angle, z_angle);
-        }
-        else if(keyListener('C', pressing[7]) == 1){
             pressing[7] = false;
         }
 

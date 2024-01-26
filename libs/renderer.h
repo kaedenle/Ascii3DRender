@@ -20,7 +20,7 @@ class Renderer{
 
         void renderPoint(Point &, char, int = numeric_limits<int>::max());
         //to check buffer
-        void renderPoint(Point3D &, char);
+        void renderPoint(Point3D &, char, int = 0);
 
         void renderBorder();
         void renderShape(Shape &);

@@ -14,7 +14,7 @@ void ZBuffer::resolveBuffer(TriangularPiece &tri){
     Point3D p2 = *tri.points_ref[2];
     Point3D shared = *tri.points_ref[0];
 
-    const int DIFF = 1;
+    const int DIFF = 0;
     //1. get min and max
     int x_max = max(max(p1.render_coords3D.x, p2.render_coords3D.x), shared.render_coords3D.x) - DIFF; 
     int y_max = max(max(p1.render_coords3D.y, p2.render_coords3D.y), shared.render_coords3D.y) - DIFF; 

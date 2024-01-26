@@ -14,13 +14,14 @@ void ZBuffer::resolveBuffer(TriangularPiece &tri){
     Point3D p2 = *tri.points_ref[2];
     Point3D shared = *tri.points_ref[0];
 
+    const int DIFF = 1;
     //1. get min and max
-    int x_max = max(max(p1.render_coords3D.x, p2.render_coords3D.x), shared.render_coords3D.x); 
-    int y_max = max(max(p1.render_coords3D.y, p2.render_coords3D.y), shared.render_coords3D.y); 
+    int x_max = max(max(p1.render_coords3D.x, p2.render_coords3D.x), shared.render_coords3D.x) - DIFF; 
+    int y_max = max(max(p1.render_coords3D.y, p2.render_coords3D.y), shared.render_coords3D.y) - DIFF; 
     int z_max = max(max(p1.render_coords3D.z, p2.render_coords3D.z), shared.render_coords3D.z); 
 
-    int x_min = min(min(p1.render_coords3D.x, p2.render_coords3D.x), shared.render_coords3D.x); 
-    int y_min = min(min(p1.render_coords3D.y, p2.render_coords3D.y), shared.render_coords3D.y); 
+    int x_min = min(min(p1.render_coords3D.x, p2.render_coords3D.x), shared.render_coords3D.x) + DIFF; 
+    int y_min = min(min(p1.render_coords3D.y, p2.render_coords3D.y), shared.render_coords3D.y) + DIFF; 
     int z_min = min(min(p1.render_coords3D.z, p2.render_coords3D.z), shared.render_coords3D.z); 
 
     for(int i = x_min; i <= x_max; i++){
@@ -41,7 +42,7 @@ void ZBuffer::resolveBuffer(TriangularPiece &tri){
                 new_z = -(tri.d + tri.normal.x * i + tri.normal.y * j)/tri.normal.z;
             }
 
-            int int_z = round(new_z);
+            int int_z = new_z;
             Point3D sample({i, j, int_z}, -1);
 
             //sample.project3DcoordsRound();
@@ -49,6 +50,8 @@ void ZBuffer::resolveBuffer(TriangularPiece &tri){
             coords index = sample.convertToIndex(XMAX, YMAX);
             new_y = index.y;
             new_x = index.x;
+            //new_y = -sample.render_coords3D.y + YMAX + 1;
+            //new_x = sample.render_coords3D.x + XMAX + 1;
             
             addToBuffer(new_y, new_x, sample.render_coords3D.z);
         }

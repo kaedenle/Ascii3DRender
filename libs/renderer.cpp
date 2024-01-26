@@ -13,12 +13,11 @@ using namespace std;
 
 Renderer::Renderer(vector< vector<char> >& g, int x, int y) : grid(g), XMAX(x), YMAX(y), buffer(x, y){}
 
-void Renderer::renderPoint(Point &p, char c, float z){
+void Renderer::renderPoint(Point &p, char c, int z){
     p.convertToIndex(XMAX, YMAX);
     //make check to see if in range
-    int new_z = round(z);
-    if(new_z != numeric_limits<int>::max()) buffer.addToBuffer(p.index.y, p.index.x, new_z);
-    if(inbounds(p) && grid[p.index.y][p.index.x] == ' ' && buffer.grid[p.index.y][p.index.x] <= new_z) grid[p.index.y][p.index.x] = c;
+    if(z != numeric_limits<int>::max()) buffer.addToBuffer(p.index.y, p.index.x, z);
+    if(inbounds(p) && grid[p.index.y][p.index.x] == ' ' && buffer.grid[p.index.y][p.index.x] <= z) grid[p.index.y][p.index.x] = c;
 }
 
 void Renderer::renderPoint(Point3D &p, char c){
@@ -58,9 +57,10 @@ void Renderer::renderLine(Point3D &p1, Point3D &p2, coords3DFloat normal, float 
     //plot starting point
     Point start(world_x, world_y);
     z = getZValue(world_x, world_y, normal, d, min_z);
+    new_z = round(z);
     //char p = new_z + '0';
 
-    renderPoint(start, c, z);
+    renderPoint(start, c, new_z);
 
     //iteratively plot all points, moving a pixel based on the algorithm
     for(int i = 1; i < dx; i++){
@@ -79,9 +79,10 @@ void Renderer::renderLine(Point3D &p1, Point3D &p2, coords3DFloat normal, float 
         //plot next point
         Point p(world_x, world_y);
         z = getZValue(world_x, world_y, normal, d, min_z);
+        new_z = round(z);
         //char t = new_z + '0';
 
-        renderPoint(p, c, z);
+        renderPoint(p, c, new_z);
     }
 }
 
@@ -198,10 +199,112 @@ void Renderer::renderTriangle(TriangularPiece &piece){
     for(Edge* edge : piece.edges_ref){
         //line itself is visible and both points of edge are visible
         if(edge->visible){
-            /*coords c1 = {edge->p1.render_coords3D.x + XMAX + 1, -edge->p1.render_coords3D.y + YMAX + 1};
-            coords c2 = {edge->p2.render_coords3D.x + XMAX + 1, -edge->p2.render_coords3D.y + YMAX + 1};
-            if(buffer.grid[c1.y][c1.x] <= edge->p1.render_coords3D.z && buffer.grid[c2.y][c2.x] <= edge->p2.render_coords3D.z)*/
-            renderLine(*edge, piece.normal, piece.d, LINECHAR);
+            //renderLine(*edge, piece.normal, piece.d, LINECHAR);
+            Bresenham3D(edge->p1, edge->p2, LINECHAR);
         }    
+    }
+}
+
+//modified from https://www.geeksforgeeks.org/bresenhams-algorithm-for-3-d-line-drawing/ (most comments original)
+//a 3D version of Bresenhams
+void Renderer::Bresenham3D(Point3D &p1, Point3D &p2, char c)
+{
+    //initialize variables
+    int x1 = p1.render_coords3D.x, y1 = p1.render_coords3D.y, z1 = p1.render_coords3D.z;
+    int x2 = p2.render_coords3D.x, y2 = p2.render_coords3D.y, z2 = p2.render_coords3D.z;
+    int dx = abs(x2 - x1), dy = abs(y2 - y1), dz = abs(z2 - z1);
+    int xs, ys, zs;
+
+    //decide driving axis
+    if (x2 > x1)
+        xs = 1;
+    else
+        xs = -1;
+
+    if (y2 > y1)
+        ys = 1;
+    else
+        ys = -1;
+
+    if (z2 > z1)
+        zs = 1;
+    else
+        zs = -1;
+    
+    //graph first point
+    Point3D p;
+    p = Point3D({x1, y1, z1}, -1);
+    renderPoint(p, c);
+ 
+    // Driving axis is X-axis"
+    if (dx >= dy && dx >= dz) {
+        //establish slope-error
+        int p1 = 2 * dy - dx;
+        int p2 = 2 * dz - dx;
+
+        //loop through x end to end
+        while (x1 != x2) {
+            x1 += xs;
+            if (p1 >= 0) {
+                y1 += ys;
+                p1 -= 2 * dx;
+            }
+            
+            if (p2 >= 0) {
+                z1 += zs;
+                p2 -= 2 * dx;
+            }
+
+            p1 += 2 * dy;
+            p2 += 2 * dz;
+            p = Point3D({x1, y1, z1}, -1);
+            renderPoint(p, c);
+        }
+    }
+    // Driving axis is Y-axis"
+    else if (dy >= dx && dy >= dz) {
+        //slope-error
+        int p1 = 2 * dx - dy;
+        int p2 = 2 * dz - dy;
+
+        //loop through y end to end
+        while (y1 != y2) {
+            y1 += ys;
+            if (p1 >= 0) {
+                x1 += xs;
+                p1 -= 2 * dy;
+            }
+            if (p2 >= 0) {
+                z1 += zs;
+                p2 -= 2 * dy;
+            }
+            p1 += 2 * dx;
+            p2 += 2 * dz;
+            p = Point3D({x1, y1, z1}, -1);
+            renderPoint(p, c);
+        }
+    }
+    // Driving axis is Z-axis"
+    else {
+        //slope-error
+        int p1 = 2 * dy - dz;
+        int p2 = 2 * dx - dz;
+
+        //loop through z end to end
+        while (z1 != z2) {
+            z1 += zs;
+            if (p1 >= 0) {
+                y1 += ys;
+                p1 -= 2 * dz;
+            }
+            if (p2 >= 0) {
+                x1 += xs;
+                p2 -= 2 * dz;
+            }
+            p1 += 2 * dy;
+            p2 += 2 * dx;
+            p = Point3D({x1, y1, z1}, -1);
+            renderPoint(p, c);
+        }
     }
 }

@@ -18,7 +18,7 @@ class Renderer{
         void renderLine(Point3D &, Point3D &, coords3DFloat, float, char);
         void Bresenham3D(Point3D &, Point3D &, char);
 
-        void renderPoint(Point &, char, int = numeric_limits<int>::max());
+        void renderPoint(Point &, char, float = numeric_limits<float>::max());
         //to check buffer
         void renderPoint(Point3D &, char, int = 0);
 

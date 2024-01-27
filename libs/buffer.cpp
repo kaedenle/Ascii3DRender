@@ -1,8 +1,8 @@
 #include "buffer.h"
 
-ZBuffer::ZBuffer(int x, int y) : XMAX(x), YMAX(y), grid((y * 2) + 3 , vector<int>((x * 2) + 3, numeric_limits<int>::min())) {}
+ZBuffer::ZBuffer(int x, int y) : XMAX(x), YMAX(y), grid((y * 2) + 3 , vector<float>((x * 2) + 3, numeric_limits<float>::min())) {}
 
-void ZBuffer::addToBuffer(int row, int col, int num){
+void ZBuffer::addToBuffer(int row, int col, float num){
     if(grid[row][col] < num){
         grid[row][col] = num;
     }
@@ -53,7 +53,7 @@ void ZBuffer::resolveBuffer(TriangularPiece &tri){
             //new_y = -sample.render_coords3D.y + YMAX + 1;
             //new_x = sample.render_coords3D.x + XMAX + 1;
             
-            addToBuffer(new_y, new_x, sample.render_coords3D.z);
+            addToBuffer(new_y, new_x, new_z);
         }
         
     }

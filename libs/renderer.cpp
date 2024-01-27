@@ -13,10 +13,10 @@ using namespace std;
 
 Renderer::Renderer(vector< vector<char> >& g, int x, int y) : grid(g), XMAX(x), YMAX(y), buffer(x, y){}
 
-void Renderer::renderPoint(Point &p, char c, int z){
+void Renderer::renderPoint(Point &p, char c, float z){
     p.convertToIndex(XMAX, YMAX);
     //make check to see if in range
-    if(z != numeric_limits<int>::max()) buffer.addToBuffer(p.index.y, p.index.x, z);
+    if(z != numeric_limits<float>::max()) buffer.addToBuffer(p.index.y, p.index.x, z);
     if(inbounds(p) && grid[p.index.y][p.index.x] == ' ' && buffer.grid[p.index.y][p.index.x] <= z) grid[p.index.y][p.index.x] = c;
 }
 
@@ -58,10 +58,10 @@ void Renderer::renderLine(Point3D &p1, Point3D &p2, coords3DFloat normal, float 
     //plot starting point
     Point start(world_x, world_y);
     z = getZValue(world_x, world_y, normal, d, min_z);
-    new_z = round(z);
+    //new_z = round(z);
     //char p = new_z + '0';
 
-    renderPoint(start, c, new_z);
+    renderPoint(start, c, z);
 
     //iteratively plot all points, moving a pixel based on the algorithm
     for(int i = 1; i < dx; i++){
@@ -80,10 +80,10 @@ void Renderer::renderLine(Point3D &p1, Point3D &p2, coords3DFloat normal, float 
         //plot next point
         Point p(world_x, world_y);
         z = getZValue(world_x, world_y, normal, d, min_z);
-        new_z = round(z);
+        //new_z = round(z);
         //char t = new_z + '0';
 
-        renderPoint(p, c, new_z);
+        renderPoint(p, c, z);
     }
 }
 
@@ -215,7 +215,7 @@ void Renderer::Bresenham3D(Point3D &p1, Point3D &p2, char c)
     int x2 = p2.render_coords3D.x, y2 = p2.render_coords3D.y, z2 = p2.render_coords3D.z;
     int dx = abs(x2 - x1), dy = abs(y2 - y1), dz = abs(z2 - z1);
     int xs, ys, zs;
-    const int ART_INC = 1;
+    const float ART_INC = 0.8f;
 
     //decide driving axis
     if (x2 > x1)
@@ -234,9 +234,9 @@ void Renderer::Bresenham3D(Point3D &p1, Point3D &p2, char c)
         zs = -1;
     
     //graph first point
-    Point3D p;
-    p = Point3D({x1, y1, z1}, -1);
-    renderPoint(p, c, ART_INC);
+    Point p;
+    p = Point(x1, y1);
+    renderPoint(p, c, z1 + ART_INC);
  
     // Driving axis is X-axis"
     if (dx >= dy && dx >= dz) {
@@ -259,8 +259,8 @@ void Renderer::Bresenham3D(Point3D &p1, Point3D &p2, char c)
 
             p1 += 2 * dy;
             p2 += 2 * dz;
-            p = Point3D({x1, y1, z1}, -1);
-            renderPoint(p, c, ART_INC);
+            p = Point(x1, y1);
+            renderPoint(p, c, z1 + ART_INC);
         }
     }
     // Driving axis is Y-axis"
@@ -282,8 +282,8 @@ void Renderer::Bresenham3D(Point3D &p1, Point3D &p2, char c)
             }
             p1 += 2 * dx;
             p2 += 2 * dz;
-            p = Point3D({x1, y1, z1}, -1);
-            renderPoint(p, c, ART_INC);
+            p = Point(x1, y1);
+            renderPoint(p, c, z1 + ART_INC);
         }
     }
     // Driving axis is Z-axis"
@@ -305,8 +305,8 @@ void Renderer::Bresenham3D(Point3D &p1, Point3D &p2, char c)
             }
             p1 += 2 * dy;
             p2 += 2 * dx;
-            p = Point3D({x1, y1, z1}, -1);
-            renderPoint(p, c, ART_INC);
+            p = Point(x1, y1);
+            renderPoint(p, c, z1 + ART_INC);
         }
     }
 }

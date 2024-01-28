@@ -23,8 +23,8 @@ void Renderer::renderPoint(Point &p, char c, float z){
 //add_z artifically increases the value in zbuffer
 void Renderer::renderPoint(Point3D &p, char c, int add_z){
     coords index = p.convertToIndex(XMAX, YMAX);
-    int y_index = -p.render_coords3D.y + YMAX + 1;
-    int x_index = p.render_coords3D.x + XMAX + 1;
+    int y_index = index.y; //-p.render_coords3D.y + YMAX + 1;
+    int x_index = index.x; //p.render_coords3D.x + XMAX + 1;
     //coords cord = {p.render_coords3D.x + XMAX + 1, -p.render_coords3D.y + YMAX + 1};
     //make check to see if in range
     if(inbounds(p) && grid[y_index][x_index] == ' ' && buffer.grid[y_index][x_index] <= p.render_coords3D.z + add_z) grid[y_index][x_index] = c;
@@ -36,12 +36,12 @@ void Renderer::renderLine(Point3D &p1, Point3D &p2, coords3DFloat normal, float 
     float z;
     int new_z;
     //initialize data
-    int world_x = p1.render_coords3D.x, world_y = p1.render_coords3D.y;
+    int world_x = p1.world.x, world_y = p1.world.y;
     int min_z = min(p2.render_coords3D.z, p1.render_coords3D.z), max_z = max(p2.render_coords3D.z, p1.render_coords3D.z);
     int dz = max_z - min_z;
 
-    int dx = abs(p2.render_coords3D.x - p1.render_coords3D.x), dy = abs(p2.render_coords3D.y - p1.render_coords3D.y);
-    int sign1 = sign(p2.render_coords3D.x - p1.render_coords3D.x), sign2 = sign(p2.render_coords3D.y - p1.render_coords3D.y);
+    int dx = abs(p2.world.x - p1.world.x), dy = abs(p2.world.y - p1.world.y);
+    int sign1 = sign(p2.world.x - p1.world.x), sign2 = sign(p2.world.y - p1.world.y);
 
     //check if line is in vertical-skewed octant
     //if it is, interchange values
@@ -211,11 +211,11 @@ void Renderer::renderTriangle(TriangularPiece &piece){
 void Renderer::Bresenham3D(Point3D &p1, Point3D &p2, char c)
 {
     //initialize variables
-    int x1 = p1.render_coords3D.x, y1 = p1.render_coords3D.y, z1 = p1.render_coords3D.z;
-    int x2 = p2.render_coords3D.x, y2 = p2.render_coords3D.y, z2 = p2.render_coords3D.z;
+    int x1 = p1.world.x, y1 = p1.world.y, z1 = p1.render_coords3D.z;
+    int x2 = p2.world.x, y2 = p2.world.y, z2 = p2.render_coords3D.z;
     int dx = abs(x2 - x1), dy = abs(y2 - y1), dz = abs(z2 - z1);
     int xs, ys, zs;
-    const float ART_INC = 0.8f;
+    const float ART_INC = 2.25f;
 
     //decide driving axis
     if (x2 > x1)
